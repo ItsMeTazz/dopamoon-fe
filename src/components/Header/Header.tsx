@@ -75,7 +75,7 @@ export default function Header() {
                   className="relative h-full text-4xl flex items-center"
                 >
                   DOPA
-                  <span className="text-moon translate-y-20 group-hover:translate-y-0 transition-all">
+                  <span className="hidden md:flex text-moon translate-y-20 group-hover:translate-y-0 transition-all">
                     MOON
                   </span>
                 </motion.div>

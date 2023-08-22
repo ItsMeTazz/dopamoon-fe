@@ -50,7 +50,7 @@ export default function Home() {
             </motion.div>
           </h1>
 
-          <div className="text-center">
+          <div className="text-center text-xl">
             $DOPA is your one-way ticket to the moon. Get your dose of $DOPAmine
             today and fasten your seatbelt.
             <br />A 5% sell-tax based deflationary rocket that will make your
