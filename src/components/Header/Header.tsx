@@ -107,7 +107,7 @@ export default function Header() {
           className="z-50 flex h-16 backdrop-blur-md shadow-lg"
         >
           <a
-            href="https://discord.gg/hYSGAXhsXw"
+            href="https://discord.gg/e4uUDw4h"
             target="_blank"
             className="backdrop-blur-md group cursor-pointer relative w-24 flex justify-center items-center border-r-[1px] border-slate-100/20 h-full transition-colors duration-500"
           >
@@ -116,7 +116,7 @@ export default function Header() {
             <div className="z-0 group-hover:w-full bg-moon absolute bottom-0 h-full w-0 left-0 transition-all ease-in-out duration-500" />
           </a>
           <a
-            href="https://twitter.com/RMDeFinance"
+            href="https://twitter.com/Dopamoon"
             target="_blank"
             className="backdrop-blur-md group cursor-pointer relative w-24 flex justify-center items-center border-r-[1px] border-slate-100/20 h-full transition-colors duration-500"
           >
