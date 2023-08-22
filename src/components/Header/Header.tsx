@@ -22,13 +22,14 @@ export default function Header() {
         </Link> */}
 
         <a
-          className="hidden w-full md:flex items-center justify-center py-2 hover:text-green-400 transition-colors"
+          className="bg-white/20 rounded-full px-2 w-full flex items-center justify-center gap-2 hover:text-green-400 transition-colors"
           href="https://dexscreener.com/bsc/0x766d7ed89297cc97ffbc8101a78438b3d59ae087"
           target="_blank"
         >
+          <Image src={logo} alt="logo" height={35} />
           {web2Context &&
-            web2Context.ogrePrice &&
-            `$${web2Context.ogrePrice.toFixed(2)}`}
+            web2Context.dopamoonPrice &&
+            `$${web2Context.dopamoonPrice.toFixed(2)}`}
         </a>
       </nav>
     );
@@ -83,17 +84,6 @@ export default function Header() {
             </Link>
 
             <div className="hidden md:flex">{nav()}</div>
-            <div className="flex md:hidden">
-              <a
-                className="w-full flex items-center justify-center py-2 hover:text-green-400 transition-colors"
-                href="https://dexscreener.com/bsc/0x766d7ed89297cc97ffbc8101a78438b3d59ae087"
-                target="_blank"
-              >
-                {web2Context &&
-                  web2Context.ogrePrice &&
-                  `$${web2Context.ogrePrice.toFixed(4)}`}
-              </a>
-            </div>
           </motion.div>
         </div>
 

@@ -32,7 +32,7 @@ export default function Home() {
               transition={{ delay: 3.5, duration: 2, ease: [0.8, 0, 0.58, 1] }}
               className="absolute left-full top-1/4 scale-100"
             >
-              <GiRocket className="text-orange -rotate-90" />
+              <GiRocket className="text-[#cb5f18] -rotate-90" />
             </motion.div>
           </h1>
           <div className="text-5xl">

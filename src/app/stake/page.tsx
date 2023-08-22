@@ -114,11 +114,11 @@ export default function Stake() {
                       {totalStakedOgre.toFixed(4)}
                     </div>
                     <div>
-                      {web2Context && web2Context.ogrePrice && (
+                      {web2Context && web2Context.dopamoonPrice && (
                         <span>
                           (
                           {formatNumberToCurrency(
-                            totalStakedOgre * Number(web2Context.ogrePrice)
+                            totalStakedOgre * Number(web2Context.dopamoonPrice)
                           )}
                           )
                         </span>
@@ -138,11 +138,11 @@ export default function Stake() {
                   />
                   <div className="font-bold">{userStakedOgre.toFixed(4)}</div>
                   <div>
-                    {web2Context && web2Context.ogrePrice && (
+                    {web2Context && web2Context.dopamoonPrice && (
                       <span>
                         (
                         {formatNumberToCurrency(
-                          userStakedOgre * Number(web2Context.ogrePrice)
+                          userStakedOgre * Number(web2Context.dopamoonPrice)
                         )}
                         )
                       </span>
@@ -182,8 +182,8 @@ export default function Stake() {
                 }
                 setValueCallback={setValue}
                 unitPrice={
-                  web2Context && web2Context.ogrePrice
-                    ? web2Context.ogrePrice
+                  web2Context && web2Context.dopamoonPrice
+                    ? web2Context.dopamoonPrice
                     : 0
                 }
               />
