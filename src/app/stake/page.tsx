@@ -2,7 +2,6 @@
 import { motion } from "framer-motion";
 import { useState, useMemo } from "react";
 import Image from "next/image";
-import shrek2 from "@/src/statics/images/logo_small.png";
 import useTotalStakedOgre from "@/src/hooks/useTotalStakedOgre";
 import useUserStakedOgre from "@/src/hooks/useUserStakedOgre";
 import NumberInput from "@/src/components/Reusable/NumberInput";
@@ -18,9 +17,7 @@ import { formatNumberToCurrency } from "@/src/statics/helpers/numberFormatter";
 import usePendingRewards from "@/src/hooks/usePendingRewards";
 import useClaim from "@/src/hooks/useClaim";
 import useRewardData from "@/src/hooks/useRewardData";
-import logo from "@/src/statics/images/logo_small.png";
-import useExit from "@/src/hooks/useExit";
-import useEthRewardRate from "@/src/hooks/useEthRewardData";
+import logo from "@/src/statics/images/logo.png";
 
 export default function Stake() {
   const [action, setAction] = useState("stake");
@@ -33,7 +30,6 @@ export default function Stake() {
   const userStakedOgre = useUserStakedOgre();
   const pendingRewards = usePendingRewards();
   const rewardRate = useRewardData();
-  const ethRewardRate = useEthRewardRate();
 
   const apr = useMemo(() => {
     return (
@@ -42,16 +38,12 @@ export default function Stake() {
     ).toFixed(2);
   }, [rewardRate, totalStakedOgre]);
 
-  const ethApr = useMemo(() => {
-    return (
-      ((ethRewardRate * 60 * 60 * 24 * 365) / totalStakedOgre) *
-      100
-    ).toFixed(2);
-  }, [ethRewardRate, totalStakedOgre]);
-
   const amountIn = useMemo(() => parseEther(value as `${number}`), [value]);
 
-  const ogreAllowance = useAllowance(DOPAMOON_ADDRESS as Address, STAKING_CONTRACT);
+  const ogreAllowance = useAllowance(
+    DOPAMOON_ADDRESS as Address,
+    STAKING_CONTRACT
+  );
   const approveOgreTX = useApprove(
     amountIn,
     DOPAMOON_ADDRESS as Address,
@@ -63,7 +55,6 @@ export default function Stake() {
     amountIn,
     action === "withdraw" && amountIn > 0
   );
-  const exitTX = useExit();
   const claimTX = useClaim(Number(pendingRewards) > 0);
 
   return (
