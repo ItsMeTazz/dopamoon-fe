@@ -11,7 +11,7 @@ import useTokenBalance from "@/src/hooks/useTokenBalance";
 import { useWeb2Context } from "@/src/contexts/web2Context";
 import useAllowance from "@/src/hooks/useAllowance";
 import useApprove from "@/src/hooks/useApprove";
-import { OGRE_ADDRESS, SWAMP_ADDRESS } from "@/src/statics/addresses";
+import { DOPAMOON_ADDRESS, STAKING_CONTRACT } from "@/src/statics/addresses";
 import useStake from "@/src/hooks/useStake";
 import useWithdraw from "@/src/hooks/useWithdraw";
 import { formatNumberToCurrency } from "@/src/statics/helpers/numberFormatter";
@@ -27,7 +27,7 @@ export default function Stake() {
   const [value, setValue] = useState("");
 
   const web2Context = useWeb2Context();
-  const ogreBalance = useTokenBalance(OGRE_ADDRESS);
+  const ogreBalance = useTokenBalance(DOPAMOON_ADDRESS);
 
   const totalStakedOgre = useTotalStakedOgre();
   const userStakedOgre = useUserStakedOgre();
@@ -51,11 +51,11 @@ export default function Stake() {
 
   const amountIn = useMemo(() => parseEther(value as `${number}`), [value]);
 
-  const ogreAllowance = useAllowance(OGRE_ADDRESS as Address, SWAMP_ADDRESS);
+  const ogreAllowance = useAllowance(DOPAMOON_ADDRESS as Address, STAKING_CONTRACT);
   const approveOgreTX = useApprove(
     amountIn,
-    OGRE_ADDRESS as Address,
-    SWAMP_ADDRESS
+    DOPAMOON_ADDRESS as Address,
+    STAKING_CONTRACT
   );
 
   const stakeTX = useStake(amountIn, action === "stake" && amountIn > 0);

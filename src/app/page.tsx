@@ -1,27 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import Image from "next/image";
-import deadOgre from "@/src/statics/images/deadogre.png";
-import shrek2 from "@/src/statics/images/shrek2.png";
-
-import {
-  GiBurningMeteor,
-  GiEvilBook,
-  GiFireworkRocket,
-  GiFizzingFlask,
-  GiRoad,
-  GiRocket,
-  GiSoundOff,
-  GiSoundOn,
-} from "react-icons/gi";
-import Link from "next/link";
+import { GiBurningMeteor, GiCoins, GiRocket } from "react-icons/gi";
 import useDeadSupply from "../hooks/useDeadSupply";
-import { BsDiscord, BsTwitter } from "react-icons/bs";
-import { BiLogoTelegram } from "react-icons/bi";
+import useTotalSupply from "../hooks/useTotalSupply";
 
 export default function Home() {
   const deadSupply = useDeadSupply();
+  const totalSupply = useTotalSupply();
 
   return (
     <section className="relative z-10 w-full px-4 md:px-7 flex">
@@ -41,24 +26,27 @@ export default function Home() {
             <div>
               $DOPA<span className="text-moon">MOON</span>
             </div>
+
             <motion.div
               animate={{ transform: "translate(1000px, -1000px) scale(5)" }}
               transition={{ delay: 3.5, duration: 2, ease: [0.8, 0, 0.58, 1] }}
               className="absolute left-full top-1/4 scale-100"
             >
-              <GiRocket className="text-moon -rotate-90" />
+              <GiRocket className="text-orange -rotate-90" />
             </motion.div>
           </h1>
-
-          <div className="text-center text-xl">
+          <div className="text-5xl">
+            <span className="text-moon">LAUNCHING</span>SOON
+          </div>
+          <div className="text-center text-xl mt-5">
             $DOPA is your one-way ticket to the moon. Get your dose of $DOPAmine
             today and fasten your seatbelt.
             <br />A 5% sell-tax based deflationary rocket that will make your
-            portfolio go 100x.
+            portfolio go 10000x.
           </div>
 
           <div className="flex gap-5 mt-5">
-            <Link
+            {/* <Link
               href="/ogregator"
               className="bg-moon rounded-md gap-2 transition-transform relative flex justify-center items-center px-10 h-12"
             >
@@ -69,27 +57,45 @@ export default function Home() {
               className="bg-moon-2 rounded-md gap-2 transition-transform relative flex justify-center items-center px-10 h-12"
             >
               Stake DOPA
-            </Link>
+            </Link> */}
           </div>
 
-          <a
-            href="https://basescan.org/token/0xab8a1c03b8e4e1d21c8ddd6edf9e07f26e843492?a=0x000000000000000000000000000000000000dead"
-            target="_blank"
-            className="mt-5 flex gap-2"
-          >
-            <GiBurningMeteor size={45} className='text-[#cb5f18]' />
-            <div className="flex flex-col">
-              <div>$DOPA BURNED</div>
-              <div className="text-[#cb5f18]">
-                {deadSupply && (
-                  <div className="">
-                    {Number(deadSupply?.formatted).toFixed(4)} /{" "}
-                    {Number((Number(deadSupply?.formatted) * 100) / 1_000_000).toFixed(2)}%
-                  </div>
-                )}
+          <div className="flex gap-10 mt-5">
+            <a
+              href="https://basescan.org/token/0xab8a1c03b8e4e1d21c8ddd6edf9e07f26e843492?a=0x000000000000000000000000000000000000dead"
+              target="_blank"
+              className="flex gap-2"
+            >
+              <GiBurningMeteor size={45} className="text-[#cb5f18]" />
+              <div className="flex flex-col">
+                <div>$DOPA BURNED</div>
+                <div className="text-[#cb5f18]">
+                  {deadSupply && (
+                    <div className="">
+                      {Number(deadSupply?.formatted).toFixed(4)} /{" "}
+                      {Number(
+                        (Number(deadSupply?.formatted) * 100) / 1_000_000
+                      ).toFixed(2)}
+                      %
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          </a>
+            </a>
+            <a className="flex gap-2">
+              <GiCoins size={45} className="text-moon" />
+              <div className="flex flex-col">
+                <div>$DOPA TOTAL SUPPLY</div>
+                <div className="text-moon">
+                  {totalSupply && deadSupply && (
+                    <div className="">
+                      {(Number(totalSupply) - Number(deadSupply.formatted)).toFixed(2)}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </a>
+          </div>
         </motion.div>
       </motion.div>
     </section>

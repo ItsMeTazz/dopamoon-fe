@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import logo from "@/src/statics/images/logo_small.png";
+import logo from "@/src/statics/images/logo.png";
 import Link from "next/link";
 import { useWeb2Context } from "@/src/contexts/web2Context";
 import { BsDiscord, BsTwitter } from "react-icons/bs";
@@ -14,12 +14,12 @@ export default function Header() {
   function nav() {
     return (
       <nav className="uppercase w-full h-full flex flex-col md:flex-row justify-end items-center gap-0 md:gap-4">
-        <Link
+        {/* <Link
           href="/stake"
           className="hover:underline hover:text-moon whitespace-nowrap w-full border-b-[1px] md:border-b-0 border-slate-100/20 py-2 hover:text-green-400 transition-colors flex gap-1 items-center justify-center"
         >
           Stake
-        </Link>
+        </Link> */}
 
         <a
           className="hidden w-full md:flex items-center justify-center py-2 hover:text-green-400 transition-colors"
@@ -63,7 +63,7 @@ export default function Header() {
                     }}
                     className="w-full h-full flex justify-center items-center"
                   >
-                    <Image src={logo} alt="logo" className="p-1" />
+                    <Image src={logo} alt="logo" className="p-1 rounded-full" />
                   </motion.div>
                 </div>
                 <motion.div
@@ -116,7 +116,7 @@ export default function Header() {
             <div className="z-0 group-hover:w-full bg-moon absolute bottom-0 h-full w-0 left-0 transition-all ease-in-out duration-500" />
           </a>
           <a
-            href="https://twitter.com/Dopamoon"
+            href="https://twitter.com/dopa_moon79407"
             target="_blank"
             className="backdrop-blur-md group cursor-pointer relative w-24 flex justify-center items-center border-r-[1px] border-slate-100/20 h-full transition-colors duration-500"
           >

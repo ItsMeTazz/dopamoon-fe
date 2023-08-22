@@ -1,14 +1,14 @@
 import { useContractRead } from "wagmi";
 import swampABI from "../statics/abis/swamp.json";
 import { formatEther } from "viem";
-import { OGRE_ADDRESS, SWAMP_ADDRESS } from "../statics/addresses";
+import { DOPAMOON_ADDRESS, STAKING_CONTRACT } from "../statics/addresses";
 
 export default function useRewardRate() {
   const { data } = useContractRead({
     abi: swampABI,
-    address: SWAMP_ADDRESS,
+    address: STAKING_CONTRACT,
     functionName: "rewardData",
-    args: [OGRE_ADDRESS],
+    args: [DOPAMOON_ADDRESS],
     chainId: 8453,
     watch: true,
   });

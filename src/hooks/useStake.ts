@@ -6,11 +6,11 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 import swampABI from "../statics/abis/swamp.json";
-import { SWAMP_ADDRESS } from "../statics/addresses";
+import { STAKING_CONTRACT } from "../statics/addresses";
 
 export default function useStake(amountIn: BigInt, enabled: boolean) {
   const preparation = usePrepareContractWrite({
-    address: SWAMP_ADDRESS as Address,
+    address: STAKING_CONTRACT as Address,
     abi: swampABI,
     enabled: enabled,
     functionName: "stake",
