@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.remedy {
+  -webkit-text-stroke: 5px transparent;
+  background: linear-gradient(#a473b8, #473998);
+  -webkit-background-clip: text;
+  color: rgb(var(--background-rgb));
+  font-size: calc(10px + 16vw);
+  font-weight: 700;
+  left: 50%;
+  letter-spacing: calc(2px + 0.4vw);
+  opacity: 0.4;
+  position: absolute;
+  text-transform: uppercase;
+  top: 85%;
+  transform: translate(-50%, -50%);
+}
+
+.roadmap-title {
+  -webkit-text-stroke: 3px transparent;
+  background: linear-gradient(rgba(74, 222, 128, 0.7), rgba(74, 222, 128, 1));
+  -webkit-background-clip: text;
+  color: rgb(var(--background-rgb));
+  font-weight: 700;
+  opacity: 1;
+  text-transform: uppercase;
+}
+
+:root {
+  --foreground-rgb: 230, 230, 230;
+  --background-rgb: 15, 30, 15;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+  width: 6px;
+}
+
+body::-webkit-scrollbar-track {
+  background: black;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(74, 222, 128);
+  border: 2px solid black;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.flask-loading {
+  animation: flask-loading 2000ms infinite ease-in-out;
+}
+
+@keyframes flask-loading {
+  20% {
+    transform: rotate(-50deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  60% {
+    transform: rotate(-30deg);
+  }
+  90% {
+    transform: rotate(5deg);
+  }
+}
