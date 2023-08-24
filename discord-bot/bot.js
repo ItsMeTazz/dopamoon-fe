@@ -67,7 +67,7 @@ async function start() {
     }
   }
 
-  client.login(process.env.TOKEN_HETH);
+  client.login(process.env.TOKEN);
 }
 
 start();
