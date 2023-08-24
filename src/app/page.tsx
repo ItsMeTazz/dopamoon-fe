@@ -70,8 +70,7 @@ export default function Home() {
               <div className="flex flex-col">
                 <div>$DOPA BURNED</div>
                 <div className="text-[#cb5f18] font-bold">
-                  COMING SOON
-                  {/* {deadSupply && (
+                  {deadSupply && (
                     <div className="">
                       {Number(deadSupply?.formatted).toFixed(4)} /{" "}
                       {Number(
@@ -79,7 +78,7 @@ export default function Home() {
                       ).toFixed(2)}
                       %
                     </div>
-                  )} */}
+                  )}
                 </div>
               </div>
             </a>
@@ -88,12 +87,13 @@ export default function Home() {
               <div className="flex flex-col">
                 <div>$DOPA TOTAL SUPPLY</div>
                 <div className="text-moon">
-                  COMING SOON
-                  {/* {totalSupply && deadSupply && (
+                  {totalSupply && deadSupply && (
                     <div className="">
-                      {(Number(totalSupply) - Number(deadSupply.formatted)).toFixed(2)}
+                      {(
+                        Number(totalSupply) - Number(deadSupply.formatted)
+                      ).toFixed(2)}
                     </div>
-                  )} */}
+                  )}
                 </div>
               </div>
             </a>

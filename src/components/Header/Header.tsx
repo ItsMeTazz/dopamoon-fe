@@ -14,22 +14,22 @@ export default function Header() {
   function nav() {
     return (
       <nav className="uppercase w-full h-full flex flex-col md:flex-row justify-end items-center gap-0 md:gap-4">
-        {/* <Link
+        <Link
           href="/stake"
           className="hover:underline hover:text-moon whitespace-nowrap w-full border-b-[1px] md:border-b-0 border-slate-100/20 py-2 hover:text-green-400 transition-colors flex gap-1 items-center justify-center"
         >
-          Stake
-        </Link> */}
+          Farm $DOPA
+        </Link>
 
         <a
-          className="bg-white/20 rounded-full px-2 w-full flex items-center justify-center gap-2 hover:text-green-400 transition-colors"
+          className="bg-white/20 rounded-full px-4 w-full flex items-center justify-center gap-2 hover:text-green-400 transition-colors"
           href="https://dexscreener.com/bsc/0x766d7ed89297cc97ffbc8101a78438b3d59ae087"
           target="_blank"
         >
           <Image src={logo} alt="logo" height={35} />
           {web2Context &&
             web2Context.dopamoonPrice &&
-            `$${web2Context.dopamoonPrice.toFixed(2)}`}
+            `$${web2Context.dopamoonPrice.toFixed(5)}`}
         </a>
       </nav>
     );
@@ -106,7 +106,7 @@ export default function Header() {
             <div className="z-0 group-hover:w-full bg-moon absolute bottom-0 h-full w-0 left-0 transition-all ease-in-out duration-500" />
           </a>
           <a
-            href="https://twitter.com/dopa_moon79407"
+            href="https://twitter.com/dopamoonxyz"
             target="_blank"
             className="backdrop-blur-md group cursor-pointer relative w-24 flex justify-center items-center border-r-[1px] border-slate-100/20 h-full transition-colors duration-500"
           >

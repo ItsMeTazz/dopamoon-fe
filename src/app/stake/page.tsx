@@ -2,55 +2,66 @@
 import { motion } from "framer-motion";
 import { useState, useMemo } from "react";
 import Image from "next/image";
-import useTotalStakedOgre from "@/src/hooks/useTotalStakedOgre";
-import useUserStakedOgre from "@/src/hooks/useUserStakedOgre";
 import NumberInput from "@/src/components/Reusable/NumberInput";
 import { Address, parseEther } from "viem";
 import useTokenBalance from "@/src/hooks/useTokenBalance";
 import { useWeb2Context } from "@/src/contexts/web2Context";
 import useAllowance from "@/src/hooks/useAllowance";
 import useApprove from "@/src/hooks/useApprove";
-import { DOPAMOON_ADDRESS, STAKING_CONTRACT } from "@/src/statics/addresses";
+import { LP_ADDRESS, STAKING_CONTRACT } from "@/src/statics/addresses";
 import useStake from "@/src/hooks/useStake";
 import useWithdraw from "@/src/hooks/useWithdraw";
 import { formatNumberToCurrency } from "@/src/statics/helpers/numberFormatter";
 import usePendingRewards from "@/src/hooks/usePendingRewards";
 import useClaim from "@/src/hooks/useClaim";
-import useRewardData from "@/src/hooks/useRewardData";
 import logo from "@/src/statics/images/logo.png";
+import useRewardRate from "@/src/hooks/useRewardRate";
+import useTotalStakedLP from "@/src/hooks/useTotalStakedLP";
+import useUserStakedLP from "@/src/hooks/useUserStakedLP";
+import useLPPrice from "@/src/hooks/useLPPrice";
 
 export default function Stake() {
   const [action, setAction] = useState("stake");
   const [value, setValue] = useState("");
 
   const web2Context = useWeb2Context();
-  const ogreBalance = useTokenBalance(DOPAMOON_ADDRESS);
+  const dopaLPBalance = useTokenBalance(LP_ADDRESS);
 
-  const totalStakedOgre = useTotalStakedOgre();
-  const userStakedOgre = useUserStakedOgre();
+  const totalStakedLP = useTotalStakedLP();
+  const userStakedLP = useUserStakedLP();
   const pendingRewards = usePendingRewards();
-  const rewardRate = useRewardData();
+  const rewardRate = useRewardRate();
+  const lpPrice = useLPPrice(
+    web2Context && web2Context.ethPrice ? Number(web2Context.ethPrice) : 0
+  );
 
   const apr = useMemo(() => {
-    return (
-      ((rewardRate * 60 * 60 * 24 * 365) / totalStakedOgre) *
-      100
-    ).toFixed(2);
-  }, [rewardRate, totalStakedOgre]);
+    if (web2Context && web2Context.dopamoonPrice) {
+      const userLPTokensValue = (userStakedLP ? userStakedLP : 1) * lpPrice;
+      const totalRewardsValue =
+        (Number(rewardRate) *
+          60 *
+          60 *
+          24 *
+          365 *
+          (userStakedLP ? userStakedLP : 1) *
+          Number(web2Context.dopamoonPrice)) /
+        totalStakedLP;
+      return ((totalRewardsValue / userLPTokensValue) * 100).toFixed(0);
+    }
+    return 0;
+  }, [lpPrice, userStakedLP, rewardRate, web2Context, totalStakedLP]);
 
   const amountIn = useMemo(() => parseEther(value as `${number}`), [value]);
 
-  const ogreAllowance = useAllowance(
-    DOPAMOON_ADDRESS as Address,
-    STAKING_CONTRACT
-  );
-  const approveOgreTX = useApprove(
+  const dopaAllowance = useAllowance(LP_ADDRESS as Address, STAKING_CONTRACT);
+  const approveDopaTX = useApprove(
     amountIn,
-    DOPAMOON_ADDRESS as Address,
+    LP_ADDRESS as Address,
     STAKING_CONTRACT
   );
 
-  const stakeTX = useStake(amountIn, action === "stake" && amountIn > 0);
+  const stakeTX = useStake(amountIn, action === "stake" && amountIn > 0 && dopaAllowance > 0);
   const withdrawTX = useWithdraw(
     amountIn,
     action === "withdraw" && amountIn > 0
@@ -73,7 +84,7 @@ export default function Stake() {
               <button
                 className={`${
                   action === "stake" ? "bg-moon" : "bg-slate-500"
-                } rounded-full px-4 py-2`}
+                } rounded-md px-4 py-2`}
                 onClick={() => setAction("stake")}
               >
                 Stake
@@ -81,7 +92,7 @@ export default function Stake() {
               <button
                 className={`${
                   action === "withdraw" ? "bg-moon-2" : "bg-slate-500"
-                } rounded-full  px-4 py-2`}
+                } rounded-md px-4 py-2`}
                 onClick={() => setAction("withdraw")}
               >
                 Withdraw
@@ -102,7 +113,7 @@ export default function Stake() {
             <div className="mt-6 w-full justify-between flex items-center">
               <div className="flex">
                 <div className="flex flex-col font-sans">
-                  Total Staked $DOPA
+                  Total Staked DOPA/WETH LP
                   <div className="flex gap-2 items-center">
                     <Image
                       src={logo}
@@ -110,17 +121,11 @@ export default function Stake() {
                       alt="OGRE"
                       className="bg-white/20 rounded-full p-0.5"
                     />
-                    <div className="font-bold">
-                      {totalStakedOgre.toFixed(4)}
-                    </div>
+                    <div className="font-bold">{totalStakedLP.toFixed(4)}</div>
                     <div>
-                      {web2Context && web2Context.dopamoonPrice && (
+                      {lpPrice && (
                         <span>
-                          (
-                          {formatNumberToCurrency(
-                            totalStakedOgre * Number(web2Context.dopamoonPrice)
-                          )}
-                          )
+                          ({formatNumberToCurrency(totalStakedLP * lpPrice)})
                         </span>
                       )}
                     </div>
@@ -128,23 +133,19 @@ export default function Stake() {
                 </div>
               </div>
               <div className="flex flex-col">
-                <div>Your Staked $DOPA</div>
+                <div>Your Staked DOPA/WETH LP</div>
                 <div className="flex gap-2 items-center">
                   <Image
                     src={logo}
                     height={25}
-                    alt="OGRE"
+                    alt="DOPA"
                     className="bg-white/20 rounded-full p-0.5"
                   />
-                  <div className="font-bold">{userStakedOgre.toFixed(4)}</div>
+                  <div className="font-bold">{userStakedLP.toFixed(4)}</div>
                   <div>
-                    {web2Context && web2Context.dopamoonPrice && (
+                    {lpPrice && (
                       <span>
-                        (
-                        {formatNumberToCurrency(
-                          userStakedOgre * Number(web2Context.dopamoonPrice)
-                        )}
-                        )
+                        ({formatNumberToCurrency(userStakedLP * lpPrice)})
                       </span>
                     )}
                   </div>
@@ -163,11 +164,11 @@ export default function Stake() {
                 <div>{action === "stake" ? "In Wallet" : "Staked"}:</div>
                 <div className="font-bold">
                   {action === "stake"
-                    ? ogreBalance
-                      ? ogreBalance.formatted
+                    ? dopaLPBalance
+                      ? Number(dopaLPBalance.formatted).toFixed(4)
                       : "0"
-                    : userStakedOgre.toFixed(4)}{" "}
-                  $DOPA
+                    : userStakedLP.toFixed(4)}{" "}
+                  DOPA/WETH LP
                 </div>
               </div>
               <NumberInput
@@ -175,10 +176,10 @@ export default function Stake() {
                 value={value}
                 balance={
                   action === "stake"
-                    ? ogreBalance
-                      ? ogreBalance.formatted
+                    ? dopaLPBalance
+                      ? dopaLPBalance.formatted
                       : "0"
-                    : userStakedOgre.toFixed(4)
+                    : userStakedLP.toFixed(4)
                 }
                 setValueCallback={setValue}
                 unitPrice={
@@ -190,17 +191,17 @@ export default function Stake() {
               <div className="mt-6 w-full flex justify-between gap-6 font-bold">
                 {action === "stake" ? (
                   <>
-                    {amountIn > 0 && ogreAllowance < amountIn ? (
+                    {amountIn > 0 && dopaAllowance < amountIn ? (
                       <button
-                        disabled={!approveOgreTX.transaction.write || !value}
+                        disabled={!approveDopaTX.transaction.write || !value}
                         onClick={() => {
-                          if (approveOgreTX.transaction.write) {
-                            approveOgreTX.transaction.write();
+                          if (approveDopaTX.transaction.write) {
+                            approveDopaTX.transaction.write();
                           }
                         }}
-                        className="disabled:contrast-50 bg-moon rounded-md w-full gap-2 transition-transform relative flex justify-center items-center px-4 h-12 text-black"
+                        className="disabled:contrast-50 bg-moon rounded-md w-full gap-2 transition-transform relative flex justify-center items-center px-4 h-12"
                       >
-                        {approveOgreTX.confirmation.isLoading
+                        {approveDopaTX.confirmation.isLoading
                           ? "APPROVING"
                           : "APPROVE"}
                       </button>
@@ -209,14 +210,14 @@ export default function Stake() {
                         disabled={
                           !stakeTX.transaction.write ||
                           !value ||
-                          (ogreBalance && amountIn > ogreBalance.value)
+                          (dopaLPBalance && amountIn > dopaLPBalance.value)
                         }
                         onClick={() => {
                           if (stakeTX.transaction.write) {
                             stakeTX.transaction.write();
                           }
                         }}
-                        className="disabled:contrast-50 flex-col bg-moon rounded-md w-full transition-transform relative flex justify-center items-center px-4 h-12 text-black"
+                        className="disabled:contrast-50 flex-col bg-moon rounded-md w-full transition-transform relative flex justify-center items-center px-4 h-12 "
                       >
                         {stakeTX.confirmation.isLoading ? "STAKING" : "STAKE"}
                       </button>
@@ -230,7 +231,7 @@ export default function Stake() {
                         withdrawTX.transaction.write();
                       }
                     }}
-                    className="disabled:contrast-50 flex-col bg-moon-2 rounded-md w-full transition-transform relative flex justify-center items-center px-4 h-12 text-black"
+                    className="disabled:contrast-50 flex-col bg-moon-2 rounded-md w-full transition-transform relative flex justify-center items-center px-4 h-12 "
                   >
                     WITHDRAW
                   </button>
@@ -248,7 +249,9 @@ export default function Stake() {
                       : "border-moon-2 text-moon-2"
                   } rounded-md w-full flex-col transition-transform relative flex justify-center items-center px-4 h-12 `}
                 >
-                  <div className="z-10 flex gap-2">CLAIM $DIPA</div>
+                  <div className="z-10 flex gap-2">
+                    CLAIM {pendingRewards} $DIPA
+                  </div>
                 </button>
               </div>
             </div>

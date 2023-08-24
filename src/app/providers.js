@@ -17,6 +17,33 @@ import {
 } from "@rainbow-me/rainbowkit/wallets";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import { CHAIN_ID } from "../statics/addresses";
+
+const fujiChain = {
+  id: CHAIN_ID,
+  name: "Avalanche",
+  network: "Avalanche",
+  iconUrl: "https://basescan.org/images/logo-symbol.svg",
+  iconBackground: "#fff",
+  nativeCurrency: {
+    decimals: 18,
+    name: "Ethereum",
+    symbol: "ETH",
+  },
+  rpcUrls: {
+    public: {
+      http: ["https://api.avax.network/ext/bc/C/rpc"],
+    },
+    default: {
+      http: ["https://api.avax.network/ext/bc/C/rpc"],
+    },
+  },
+  blockExplorers: {
+    default: { name: "Snowtrace", url: "https://snowtrace.io/" },
+    etherscan: { name: "Snowtrace", url: "https://snowtrace.io/" },
+  },
+  testnet: false,
+};
 
 const baseChain = {
   id: 8453,
@@ -45,7 +72,7 @@ const baseChain = {
 };
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [baseChain],
+  [baseChain, fujiChain],
   [
     jsonRpcProvider({
       rpc: (chain) => ({ http: chain.rpcUrls.default.http[0] }),
@@ -58,7 +85,7 @@ const projectId = process.env.NEXT_PUBLIC_APP_ID
   : "";
 
 const demoAppInfo = {
-  appName: "HypnosETH",
+  appName: "DOPAMOON",
 };
 
 const connectors = connectorsForWallets([
@@ -67,7 +94,7 @@ const connectors = connectorsForWallets([
     wallets: [
       rabbyWallet({ chains }),
       metaMaskWallet({ projectId, chains }),
-      coinbaseWallet({ appName: "KOTR", chains }),
+      coinbaseWallet({ appName: "DOPAMOON", chains }),
       safeWallet({ chains }),
     ],
   },

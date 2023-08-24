@@ -5,7 +5,7 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
-import swampABI from "../statics/abis/swamp.json";
+import swampABI from "../statics/abis/LPStakingABI.json";
 import { STAKING_CONTRACT } from "../statics/addresses";
 
 export default function useWithdraw(amountIn: BigInt, enabled: boolean) {

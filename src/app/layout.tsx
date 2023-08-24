@@ -18,7 +18,7 @@ const chakra = Chakra_Petch({
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "$DOPAMOON",
-    description: "$DOPA now on Base Chain",
+    description: "$DOPA now on ShibChain",
   };
 }
 
