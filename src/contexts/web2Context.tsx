@@ -22,8 +22,8 @@ type Props = {
 };
 
 export default function Web2Provider({ children }: Props) {
-  const [ogrePrice, setOgrePrice] = useState<Number>(0);
-  const [ethPrice, setEthPrice] = useState<Number>(0);
+  const [dopaPrice, setDopaPrice] = useState<Number>(0);
+  const [bonePrice, setBonePrice] = useState<Number>(0);
 
   useEffect(() => {
     async function fetchPrices() {
@@ -32,14 +32,14 @@ export default function Web2Provider({ children }: Props) {
         { next: { revalidate: 10 } }
       );
       const priceData = await req.json();
-      setOgrePrice(Number(priceData.pairs[0].priceUsd));
+      setDopaPrice(Number(priceData.pairs[0].priceUsd));
 
       const reqEth = await fetch(
         "https://api.dexscreener.com/latest/dex/pairs/avalanche/0xd446eb1660f766d533beceef890df7a69d26f7d1",
         { next: { revalidate: 10 } }
       );
       const priceDataEth = await reqEth.json();
-      setEthPrice(Number(priceDataEth.pairs[0].priceUsd));
+      setBonePrice(Number(priceDataEth.pairs[0].priceUsd));
     }
 
     fetchPrices();
@@ -48,8 +48,8 @@ export default function Web2Provider({ children }: Props) {
   return (
     <Web2Context.Provider
       value={{
-        dopamoonPrice: ogrePrice,
-        ethPrice: ethPrice,
+        dopamoonPrice: dopaPrice,
+        ethPrice: bonePrice,
       }}
     >
       {children}

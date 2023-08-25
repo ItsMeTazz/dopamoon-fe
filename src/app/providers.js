@@ -3,7 +3,6 @@
 import * as React from "react";
 import {
   RainbowKitProvider,
-  getDefaultWallets,
   connectorsForWallets,
 } from "@rainbow-me/rainbowkit";
 import {
@@ -19,60 +18,34 @@ import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { CHAIN_ID } from "../statics/addresses";
 
-const fujiChain = {
-  id: CHAIN_ID,
-  name: "Avalanche",
-  network: "Avalanche",
-  iconUrl: "https://basescan.org/images/logo-symbol.svg",
-  iconBackground: "#fff",
-  nativeCurrency: {
-    decimals: 18,
-    name: "Ethereum",
-    symbol: "ETH",
-  },
-  rpcUrls: {
-    public: {
-      http: ["https://api.avax.network/ext/bc/C/rpc"],
-    },
-    default: {
-      http: ["https://api.avax.network/ext/bc/C/rpc"],
-    },
-  },
-  blockExplorers: {
-    default: { name: "Snowtrace", url: "https://snowtrace.io/" },
-    etherscan: { name: "Snowtrace", url: "https://snowtrace.io/" },
-  },
-  testnet: false,
-};
-
 const baseChain = {
-  id: 8453,
-  name: "Base",
-  network: "Base Mainnet",
-  iconUrl: "https://basescan.org/images/logo-symbol.svg",
+  id: CHAIN_ID,
+  name: "Shibarium",
+  network: "Shibarium",
+  iconUrl: "https://uploads-ssl.webflow.com/64a576093dd515c9042b0db7/64a576093dd515c9042b0e15_Shibariumtech.svg",
   iconBackground: "#fff",
   nativeCurrency: {
     decimals: 18,
-    name: "Ethereum",
-    symbol: "ETH",
+    name: "Bone",
+    symbol: "BONE",
   },
   rpcUrls: {
     public: {
-      http: ["https://mainnet.base.org"],
+      http: ["https://www.shibrpc.com/"],
     },
     default: {
-      http: ["https://mainnet.base.org"],
+      http: ["https://www.shibrpc.com/"],
     },
   },
   blockExplorers: {
-    default: { name: "BaseScan", url: "https://basescan.org" },
-    etherscan: { name: "BaseScan", url: "https://basescan.org" },
+    default: { name: "ShibariumScan", url: "https://www.shibariumscan.io/" },
+    etherscan: { name: "ShibariumScan", url: "https://www.shibariumscan.io/" },
   },
   testnet: false,
 };
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [baseChain, fujiChain],
+  [baseChain],
   [
     jsonRpcProvider({
       rpc: (chain) => ({ http: chain.rpcUrls.default.http[0] }),

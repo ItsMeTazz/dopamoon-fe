@@ -35,13 +35,13 @@ export default function Home() {
               <GiRocket className="text-[#cb5f18] -rotate-90" />
             </motion.div>
           </h1>
-          <div className="text-5xl">
-            <span className="text-moon">LAUNCHING</span>SOON
+          <div className="text-2xl">
+            <span className="text-[#F68D36] font-bold">on Shibarium</span>
           </div>
           <div className="text-center text-xl mt-5">
             $DOPA is your one-way ticket to the moon. Get your dose of $DOPAmine
             today and fasten your seatbelt.
-            <br />A 5% sell-tax based deflationary rocket that will make your
+            <br />A 1% tax based deflationary (burned) rocket that will make your
             portfolio go 10000x.
           </div>
 

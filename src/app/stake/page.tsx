@@ -15,6 +15,7 @@ import { formatNumberToCurrency } from "@/src/statics/helpers/numberFormatter";
 import usePendingRewards from "@/src/hooks/usePendingRewards";
 import useClaim from "@/src/hooks/useClaim";
 import logo from "@/src/statics/images/logo.png";
+import lpLogo from "@/src/statics/images/lp.png";
 import useRewardRate from "@/src/hooks/useRewardRate";
 import useTotalStakedLP from "@/src/hooks/useTotalStakedLP";
 import useUserStakedLP from "@/src/hooks/useUserStakedLP";
@@ -61,7 +62,10 @@ export default function Stake() {
     STAKING_CONTRACT
   );
 
-  const stakeTX = useStake(amountIn, action === "stake" && amountIn > 0 && dopaAllowance > 0);
+  const stakeTX = useStake(
+    amountIn,
+    action === "stake" && amountIn > 0 && dopaAllowance > 0
+  );
   const withdrawTX = useWithdraw(
     amountIn,
     action === "withdraw" && amountIn > 0
@@ -80,7 +84,7 @@ export default function Stake() {
           <div
             className={`w-full border-[1px] backdrop-blur-sm border-slate-100/20 rounded-md bg-dark p-6 font-sans`}
           >
-            <div className="w-full flex justify-center gap-6 font-bold">
+            {/* <div className="w-full flex justify-center gap-6 font-bold">
               <button
                 className={`${
                   action === "stake" ? "bg-moon" : "bg-slate-500"
@@ -97,26 +101,15 @@ export default function Stake() {
               >
                 Withdraw
               </button>
-              {/* <button
-                disabled={!exitTX.transaction.write}
-                onClick={() => {
-                  if (exitTX.transaction.write) {
-                    exitTX.transaction.write();
-                  }
-                }}
-                className="disabled:contrast-50 flex-col bg-moon-2 rounded-md w-52 transition-transform relative flex justify-center items-center px-4 h-12 text-black"
-              >
-                {exitTX.confirmation.isLoading ? "EXITING" : "EXIT v1"}
-                <div className="text-xs">Claim rewards & withdraw funds</div>
-              </button> */}
+             
             </div>
             <div className="mt-6 w-full justify-between flex items-center">
               <div className="flex">
                 <div className="flex flex-col font-sans">
-                  Total Staked DOPA/WETH LP
+                  Total Staked DOPA/WBONE LP
                   <div className="flex gap-2 items-center">
                     <Image
-                      src={logo}
+                      src={lpLogo}
                       height={25}
                       alt="OGRE"
                       className="bg-white/20 rounded-full p-0.5"
@@ -133,10 +126,10 @@ export default function Stake() {
                 </div>
               </div>
               <div className="flex flex-col">
-                <div>Your Staked DOPA/WETH LP</div>
+                <div>Your Staked DOPA/WBONE LP</div>
                 <div className="flex gap-2 items-center">
                   <Image
-                    src={logo}
+                    src={lpLogo}
                     height={25}
                     alt="DOPA"
                     className="bg-white/20 rounded-full p-0.5"
@@ -154,8 +147,6 @@ export default function Stake() {
               <div className="text-right">
                 <div>APR</div>
                 <div className="font-bold">{apr}%</div>
-                {/* <div className="font-bold">WETH: {ethApr}%</div> */}
-                {/* <div className="text-xs">Paused. Migrating contracts</div> */}
               </div>
             </div>
 
@@ -254,7 +245,8 @@ export default function Stake() {
                   </div>
                 </button>
               </div>
-            </div>
+            </div> */}
+            <div className='uppercase text-moon text-4xl font-bold'>COMING SOON</div>
           </div>
         </div>
       </motion.div>
