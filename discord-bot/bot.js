@@ -57,7 +57,6 @@ async function start() {
 
       const res = await reqResponse.json();
 
-      console.log("priceChangeString", `${price} ${priceChangeString}`);
       client.user.setPresence({
         activities: [
           {
