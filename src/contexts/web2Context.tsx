@@ -9,7 +9,7 @@ import {
 
 export type Web2ContextType = {
   dopamoonPrice: Number;
-  ethPrice: Number;
+  bonePrice: Number;
 };
 
 export const Web2Context = createContext<Web2ContextType | null>(null);
@@ -49,7 +49,7 @@ export default function Web2Provider({ children }: Props) {
     <Web2Context.Provider
       value={{
         dopamoonPrice: dopaPrice,
-        ethPrice: bonePrice,
+        bonePrice: bonePrice,
       }}
     >
       {children}
