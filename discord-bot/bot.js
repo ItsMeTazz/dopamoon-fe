@@ -60,7 +60,7 @@ async function start() {
       client.user.setPresence({
         activities: [
           {
-            name: `$DOPA Price`,
+            name: `$DOPA`,
             type: ActivityType.Watching,
           },
         ],
