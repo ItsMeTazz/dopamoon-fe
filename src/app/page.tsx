@@ -62,7 +62,7 @@ export default function Home() {
 
           <div className="flex gap-10 mt-5">
             <a
-              //href="https://basescan.org/token/0xab8a1c03b8e4e1d21c8ddd6edf9e07f26e843492?a=0x000000000000000000000000000000000000dead"
+              href="https://www.shibariumscan.io/address/0x000000000000000000000000000000000000dEaD"
               target="_blank"
               className="flex gap-2"
             >

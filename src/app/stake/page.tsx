@@ -33,7 +33,7 @@ export default function Stake() {
   const pendingRewards = usePendingRewards();
   const rewardRate = useRewardRate();
   const lpPrice = useLPPrice(
-    web2Context && web2Context.ethPrice ? Number(web2Context.ethPrice) : 0
+    web2Context && web2Context.bonePrice ? Number(web2Context.bonePrice) : 0
   );
 
   const apr = useMemo(() => {
@@ -101,7 +101,6 @@ export default function Stake() {
               >
                 Withdraw
               </button>
-             
             </div>
             <div className="mt-6 w-full justify-between flex items-center">
               <div className="flex">
@@ -159,7 +158,7 @@ export default function Stake() {
                       ? Number(dopaLPBalance.formatted).toFixed(4)
                       : "0"
                     : userStakedLP.toFixed(4)}{" "}
-                  DOPA/WETH LP
+                  DOPA/WBONE LP
                 </div>
               </div>
               <NumberInput
@@ -173,11 +172,7 @@ export default function Stake() {
                     : userStakedLP.toFixed(4)
                 }
                 setValueCallback={setValue}
-                unitPrice={
-                  web2Context && web2Context.dopamoonPrice
-                    ? web2Context.dopamoonPrice
-                    : 0
-                }
+                unitPrice={lpPrice}
               />
               <div className="mt-6 w-full flex justify-between gap-6 font-bold">
                 {action === "stake" ? (
@@ -246,7 +241,7 @@ export default function Stake() {
                 </button>
               </div>
             </div> */}
-            <div className='uppercase text-moon text-4xl font-bold'>COMING SOON</div>
+            <div className="text-3xl text-moon font-bold">COMING SOON</div>
           </div>
         </div>
       </motion.div>

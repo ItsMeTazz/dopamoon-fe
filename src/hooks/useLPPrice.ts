@@ -22,6 +22,7 @@ export default function useLPPrice(ethPrice: Number) {
   if (ethBalanceInLp && lpTotalSupply) {
     const marketCap =
       Number(formatEther(ethBalanceInLp)) * 2 * Number(ethPrice);
+
     const lpPrice = marketCap / Number(formatEther(lpTotalSupply as bigint));
     return lpPrice;
   }

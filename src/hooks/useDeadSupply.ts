@@ -1,9 +1,9 @@
 import { useAccount, useBalance } from "wagmi";
-import { DOPAMOON_ADDRESS } from "../statics/addresses";
+import { DEAD_ADDRESS, DOPAMOON_ADDRESS } from "../statics/addresses";
 
 export default function useDeadSupply() {
   const { data } = useBalance({
-    address: "0x000000000000000000000000000000000000dEaD",
+    address: DEAD_ADDRESS,
     token: DOPAMOON_ADDRESS,
     watch: true,
   });

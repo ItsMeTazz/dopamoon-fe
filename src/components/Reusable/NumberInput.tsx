@@ -1,5 +1,5 @@
 import { formatNumberToCurrency } from "@/src/statics/helpers/numberFormatter";
-import logo from "@/src/statics/images/logo.png";
+import logo from "@/src/statics/images/lp.png";
 import Image from "next/image";
 
 export default function NumberInput({
@@ -17,9 +17,9 @@ export default function NumberInput({
 }) {
   return (
     <div className="mt-2 w-full flex items-center h-10 gap-2 bg-slate-500/40 rounded-md relative">
-      <button className="relative min-w-[60px] flex items-center justify-center h-full hover:bg-ogre/10 border-r-[1px] border-slate-500/50">
+      <div className="relative min-w-[60px] flex items-center justify-center h-full hover:bg-ogre/10 border-r-[1px] border-slate-500/50">
         <Image alt={tokenSymbol} height={20} src={logo} />
-      </button>
+      </div>
 
       <input
         disabled={!balance}

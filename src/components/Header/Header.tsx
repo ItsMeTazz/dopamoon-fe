@@ -14,22 +14,36 @@ export default function Header() {
   function nav() {
     return (
       <nav className="uppercase w-full h-full flex flex-col md:flex-row justify-end items-center gap-0 md:gap-4">
+        <a
+          href="https://shibbex.com/swap?chainId=109&inputCurrency=ETH&outputCurrency=0xB0cb6dE25BFc5811E323DBF0495d9BA6A154f43a"
+          target="_blank"
+          className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
+        >
+          Buy $DOPA
+        </a>
         <Link
           href="/stake"
-          className="hover:underline hover:text-moon whitespace-nowrap w-full border-b-[1px] md:border-b-0 border-slate-100/20 py-2 hover:text-green-400 transition-colors flex gap-1 items-center justify-center"
+          className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
         >
           Farm $DOPA
         </Link>
+        <a
+          href="https://bridge.shipedex.io/"
+          target="_blank"
+          className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
+        >
+          Bridge
+        </a>
 
         <a
           className="bg-white/20 rounded-full px-4 w-full flex items-center justify-center gap-2 hover:text-green-400 transition-colors"
-          href="https://dexscreener.com/bsc/0x766d7ed89297cc97ffbc8101a78438b3d59ae087"
+          href="https://www.defined.fi/shib/0x4a89dbcf583f899371ca9dacd9a9840202caf160?quoteToken=token1&cache=cd20f"
           target="_blank"
         >
           <Image src={logo} alt="logo" height={35} />
           {web2Context &&
             web2Context.dopamoonPrice &&
-            `$${web2Context.dopamoonPrice.toFixed(5)}`}
+            `$${web2Context.dopamoonPrice.toFixed(2)}`}
         </a>
       </nav>
     );
