@@ -21,12 +21,20 @@ export default function Header() {
         >
           Buy $DOPA
         </a>
-        <Link
+        <a
+          href=" https://shibbex.com/farm?chainId=109"
+          target="_blank"
+          className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
+        >
+          Farm $DOPA
+        </a>
+       
+        {/* <Link
           href="/stake"
           className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
         >
           Farm $DOPA
-        </Link>
+        </Link> */}
         <a
           href="https://bridge.shipedex.io/"
           target="_blank"
@@ -37,7 +45,7 @@ export default function Header() {
 
         <a
           className="bg-white/20 rounded-full px-4 w-full flex items-center justify-center gap-2 hover:text-green-400 transition-colors"
-          href="https://www.defined.fi/shib/0x4a89dbcf583f899371ca9dacd9a9840202caf160?quoteToken=token1&cache=cd20f"
+          href="https://dexscreener.com/shibarium/0x4a89dbcf583f899371ca9dacd9a9840202caf160"
           target="_blank"
         >
           <Image src={logo} alt="logo" height={35} />
