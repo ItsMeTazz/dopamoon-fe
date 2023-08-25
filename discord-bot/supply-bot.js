@@ -36,7 +36,7 @@ async function start() {
       const walletAddress = '0x000000000000000000000000000000000000dEaD';
       const tokenAbi = ['function balanceOf(address) view returns (uint256)'];
       const tokenContract = new ethers.Contract(tokenAddress, tokenAbi, provider);
-      const burnedSupply = Number(await tokenContract.balanceOf(walletAddress)) / 1e18
+      const burnedSupply = Number(await tokenContract.balanceOf(walletAddress)) / 1e18 
     
       const totalSupply = 69420
       client.user.setPresence({
