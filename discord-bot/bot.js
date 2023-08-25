@@ -5,7 +5,11 @@ const {
   Partials,
   ActivityType,
 } = require("discord.js");
-const { getPriceData, getPriceOnPair, getH1PriceChangeOnPair } = require("./helper");
+const {
+  getPriceData,
+  getPriceOnPair,
+  getH1PriceChangeOnPair,
+} = require("./helper");
 
 async function start() {
   console.log("[Start]");
@@ -30,19 +34,34 @@ async function start() {
   async function updatePrice() {
     console.log("[updatePrice]");
     try {
-      const priceData = await getPriceData(
-        "https://api.dexscreener.com/latest/dex/tokens/0x82aF49447D8a07e3bd95BD0d56f35241523fBab1"
-      );
-      const price = getPriceOnPair(priceData);
-      const priceChange = getH1PriceChangeOnPair(priceData);
-      const priceChangeString = `24h: ${priceChange}% ${
-        priceChange < 0 ? "🔽" : "🔼"
-      }`;
+      const query = {
+        query: `
+          {
+            getTokenPrices(inputs: [
+              { address: "0xB0cb6dE25BFc5811E323DBF0495d9BA6A154f43a", networkId: 109 }
+            ]) {
+              priceUsd
+            }
+          }
+        `,
+      };
+
+      const reqResponse = await fetch("https://api.defined.fi/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": process.env.DEFINED_KEY,
+        },
+        body: JSON.stringify(query),
+      });
+
+      const res = await reqResponse.json();
+
       console.log("priceChangeString", `${price} ${priceChangeString}`);
       client.user.setPresence({
         activities: [
           {
-            name: `${priceChangeString}`,
+            name: `$DOPA Price`,
             type: ActivityType.Watching,
           },
         ],
@@ -52,7 +71,7 @@ async function start() {
       client.guilds.cache.forEach(async (guild) => {
         try {
           const member = await guild.members.fetch(client.user.id);
-          await member.setNickname(`$${price}`);
+          await member.setNickname(`$${res.data.getTokenPrices[0].priceUsd}`);
           console.log(`Updated HETH`);
         } catch (error) {
           console.error(
