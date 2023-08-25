@@ -70,8 +70,8 @@ async function start() {
       client.guilds.cache.forEach(async (guild) => {
         try {
           const member = await guild.members.fetch(client.user.id);
-          await member.setNickname(`$${res.data.getTokenPrices[0].priceUsd}`);
-          console.log(`Updated HETH`);
+          await member.setNickname(`$${Number(res.data.getTokenPrices[0].priceUsd).toFixed(2)}`);
+          console.log(`Updated price`);
         } catch (error) {
           console.error(
             `Failed to update nickname in guild: ${guild.name}`,
