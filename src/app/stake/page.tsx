@@ -107,7 +107,7 @@ export default function Stake() {
             <div className="mt-6 w-full justify-between flex items-center">
               <div className="flex">
                 <div className="flex flex-col font-sans">
-                  Total Staked DOPA/WBONE LP
+                  Total Staked DOPA/BONE LP
                   <div className="flex gap-2 items-center">
                     <Image
                       src={lpLogo}
@@ -127,7 +127,7 @@ export default function Stake() {
                 </div>
               </div>
               <div className="flex flex-col">
-                <div>Your Staked DOPA/WBONE LP</div>
+                <div>Your Staked DOPA/BONE LP</div>
                 <div className="flex gap-2 items-center">
                   <Image
                     src={lpLogo}
@@ -164,7 +164,7 @@ export default function Stake() {
                         ? Number(dopaLPBalance.formatted).toFixed(4)
                         : "0"
                       : userStakedLP.toFixed(4)}{" "}
-                    DOPA/WBONE LP
+                    DOPA/BONE LP
                   </div>
                 </div>
                 <a
