@@ -56,7 +56,7 @@ export default function Stake() {
   const amountIn = useMemo(() => parseEther(value as `${number}`), [value]);
 
   const dopaAllowance = useAllowance(LP_ADDRESS as Address, STAKING_CONTRACT);
-  const approveDopaTX = useApprove(
+  const approveLPTX = useApprove(
     amountIn,
     LP_ADDRESS as Address,
     STAKING_CONTRACT
@@ -84,7 +84,7 @@ export default function Stake() {
           <div
             className={`w-full border-[1px] backdrop-blur-sm border-slate-100/20 rounded-md bg-dark p-6 font-sans`}
           >
-            {/* <div className="w-full flex justify-center gap-6 font-bold">
+            <div className="w-full flex justify-center gap-6 font-bold">
               <button
                 className={`${
                   action === "stake" ? "bg-moon" : "bg-slate-500"
@@ -145,22 +145,35 @@ export default function Stake() {
               </div>
               <div className="text-right">
                 <div>APR</div>
-                <div className="font-bold">{apr}%</div>
+                <div className="font-bold">
+                  SOON!
+                  {/* {apr}% */}
+                </div>
               </div>
             </div>
 
             <div className="mt-6">
-              <div className="flex gap-1">
-                <div>{action === "stake" ? "In Wallet" : "Staked"}:</div>
-                <div className="font-bold">
-                  {action === "stake"
-                    ? dopaLPBalance
-                      ? Number(dopaLPBalance.formatted).toFixed(4)
-                      : "0"
-                    : userStakedLP.toFixed(4)}{" "}
-                  DOPA/WBONE LP
+              <div className="w-full justify-between flex">
+                <div className="flex gap-1">
+                  <div>{action === "stake" ? "In Wallet" : "Staked"}:</div>
+                  <div className="font-bold">
+                    {action === "stake"
+                      ? dopaLPBalance
+                        ? Number(dopaLPBalance.formatted).toFixed(4)
+                        : "0"
+                      : userStakedLP.toFixed(4)}{" "}
+                    DOPA/WBONE LP
+                  </div>
                 </div>
+                <a
+                  target="_blank"
+                  href="https://shibbex.com/legacy/add/ETH/0xB0cb6dE25BFc5811E323DBF0495d9BA6A154f43a?chainId=109"
+                  className="underline text-moon"
+                >
+                  Make DOPA/BONE LP
+                </a>
               </div>
+
               <NumberInput
                 tokenSymbol="DOPA"
                 value={value}
@@ -179,15 +192,15 @@ export default function Stake() {
                   <>
                     {amountIn > 0 && dopaAllowance < amountIn ? (
                       <button
-                        disabled={!approveDopaTX.transaction.write || !value}
+                        disabled={!approveLPTX.transaction.write || !value}
                         onClick={() => {
-                          if (approveDopaTX.transaction.write) {
-                            approveDopaTX.transaction.write();
+                          if (approveLPTX.transaction.write) {
+                            approveLPTX.transaction.write();
                           }
                         }}
                         className="disabled:contrast-50 bg-moon rounded-md w-full gap-2 transition-transform relative flex justify-center items-center px-4 h-12"
                       >
-                        {approveDopaTX.confirmation.isLoading
+                        {approveLPTX.confirmation.isLoading
                           ? "APPROVING"
                           : "APPROVE"}
                       </button>
@@ -219,7 +232,11 @@ export default function Stake() {
                     }}
                     className="disabled:contrast-50 flex-col bg-moon-2 rounded-md w-full transition-transform relative flex justify-center items-center px-4 h-12 "
                   >
-                    WITHDRAW
+                    {withdrawTX.confirmation.isLoading ? (
+                      <span>WITHDRAWING</span>
+                    ) : (
+                      <span> WITHDRAW (2% fee)</span>
+                    )}
                   </button>
                 )}
                 <button
@@ -236,12 +253,15 @@ export default function Stake() {
                   } rounded-md w-full flex-col transition-transform relative flex justify-center items-center px-4 h-12 `}
                 >
                   <div className="z-10 flex gap-2">
-                    CLAIM {pendingRewards} $DIPA
+                    {claimTX.confirmation.isLoading ? (
+                      <span>CLAIMING {pendingRewards} $DIPA</span>
+                    ) : (
+                      <span> CLAIM</span>
+                    )}
                   </div>
                 </button>
               </div>
-            </div> */}
-            <div className="text-3xl text-moon font-bold">COMING SOON</div>
+            </div>
           </div>
         </div>
       </motion.div>

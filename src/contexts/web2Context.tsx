@@ -35,7 +35,7 @@ export default function Web2Provider({ children }: Props) {
       setDopaPrice(Number(priceData.pairs[0].priceUsd));
 
       const reqEth = await fetch(
-        "https://api.dexscreener.com/latest/dex/pairs/shibarium/0x59bffa3e7b23bd0eacf1ba03a8865ebf1f085263",
+        "https://api.dexscreener.com/latest/dex/pairs/ethereum/0xb011e4eb4111ef00b620a5ed195836dcd69db1ff",
         { next: { revalidate: 10 } }
       );
       const priceDataEth = await reqEth.json();

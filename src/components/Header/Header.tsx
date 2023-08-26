@@ -21,20 +21,13 @@ export default function Header() {
         >
           Buy $DOPA
         </a>
-        <a
-          href=" https://shibbex.com/farm?chainId=109"
-          target="_blank"
-          className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
-        >
-          Farm $DOPA
-        </a>
-       
-        {/* <Link
+
+        <Link
           href="/stake"
           className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
         >
           Farm $DOPA
-        </Link> */}
+        </Link>
         <a
           href="https://bridge.shipedex.io/"
           target="_blank"
