@@ -19,17 +19,17 @@ export default function Header() {
           target="_blank"
           className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
         >
-          Buy $DOPA
+          Buy
         </a>
 
         <Link
           href="/stake"
           className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
         >
-          Farm $DOPA
+          Farm
         </Link>
         <a
-          href="https://bridge.shipedex.io/"
+          href="https://shibarium.shib.io/bridge"
           target="_blank"
           className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
         >

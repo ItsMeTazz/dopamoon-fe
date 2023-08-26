@@ -84,7 +84,9 @@ export default function Stake() {
           <div
             className={`w-full border-[1px] backdrop-blur-sm border-slate-100/20 rounded-md bg-dark p-6 font-sans`}
           >
-            <div className="w-full flex justify-center gap-6 font-bold">
+            <div className='text-3xl font-bold text-moon text-center'>OPENING SOON!</div>
+            <div className='text-xl font-bold text-center'>Prestaking open, no rewards yet</div>
+            <div className="mt-5 w-full flex justify-center gap-6 font-bold">
               <button
                 className={`${
                   action === "stake" ? "bg-moon" : "bg-slate-500"
@@ -170,7 +172,7 @@ export default function Stake() {
                   href="https://shibbex.com/legacy/add/ETH/0xB0cb6dE25BFc5811E323DBF0495d9BA6A154f43a?chainId=109"
                   className="underline text-moon"
                 >
-                  Make DOPA/BONE LP
+                  Get DOPA/BONE LP
                 </a>
               </div>
 
