@@ -7,11 +7,10 @@ import {
 import swampABI from "../statics/abis/LPStakingABI.json";
 import { STAKING_CONTRACT } from "../statics/addresses";
 
-export default function useClaim(enabled: boolean) {
+export default function useClaim() {
   const preparation = usePrepareContractWrite({
     address: STAKING_CONTRACT as Address,
     abi: swampABI,
-    enabled: enabled,
     functionName: "getReward",
     args: [false],
     onError(err) {

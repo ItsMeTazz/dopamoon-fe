@@ -75,9 +75,7 @@ export default function Stake() {
     amountIn,
     action === "withdraw" && amountIn > 0
   );
-  const claimTX = useClaim(
-    Number(dopaPendingRewards) > 0 || Number(shexPendingRewards) > 0
-  );
+  const claimTX = useClaim();
 
   return (
     <section className="relative z-10 w-full flex items-center">
@@ -253,7 +251,6 @@ export default function Stake() {
                   </button>
                 )}
                 <button
-                  disabled={!claimTX.transaction.write}
                   onClick={() => {
                     if (claimTX.transaction.write) {
                       claimTX.transaction.write();
