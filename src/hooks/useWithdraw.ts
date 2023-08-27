@@ -13,7 +13,7 @@ export default function useWithdraw(amountIn: BigInt, enabled: boolean) {
     address: STAKING_CONTRACT as Address,
     abi: swampABI,
     enabled: enabled,
-    functionName: "withdraw",
+    functionName: "exit",
     args: [amountIn],
     onError(err) {
       console.error(err);

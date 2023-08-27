@@ -1,6 +1,5 @@
 import { Address } from "viem";
 import {
-  useAccount,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
@@ -14,6 +13,7 @@ export default function useClaim(enabled: boolean) {
     abi: swampABI,
     enabled: enabled,
     functionName: "getReward",
+    args: [false],
     onError(err) {
       console.error(err);
     },
