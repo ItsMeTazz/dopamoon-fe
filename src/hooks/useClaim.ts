@@ -12,7 +12,7 @@ export default function useClaim() {
     address: STAKING_CONTRACT as Address,
     abi: swampABI,
     functionName: "getReward",
-    args: [false],
+    args: [true],
     onError(err) {
       console.error(err);
     },

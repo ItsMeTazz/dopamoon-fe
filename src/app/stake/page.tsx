@@ -38,7 +38,6 @@ export default function Stake() {
   const dopaPendingRewards = usePendingRewards(DOPAMOON_ADDRESS);
   const shexPendingRewards = usePendingRewards(SHEX_ADDRESS);
   const dopaRewardRate = useDopaRewardData();
-  const shexRewardRate = useShexRewardData();
 
   const lpPrice = useLPPrice(
     web2Context && web2Context.bonePrice ? Number(web2Context.bonePrice) : 0
@@ -52,11 +51,27 @@ export default function Stake() {
   }, [dopaRewardRate, totalStakedLP]);
 
   const shexAPR = useMemo(() => {
-    return (
-      ((shexRewardRate * 60 * 60 * 24 * 365) / totalStakedLP) *
-      100
-    ).toFixed(2);
-  }, [shexRewardRate, totalStakedLP]);
+    if (web2Context && web2Context.dopamoonPrice && web2Context.shexPerDay) {
+      const userStakedLPCheck = userStakedLP ? userStakedLP : 1;
+      const userLPTokensValue = userStakedLPCheck * lpPrice;
+
+      console.log(' shex per day', web2Context.shexPerDay)
+      const shexPerYear = Number(web2Context.shexPerDay) * 365;
+
+      const totalRewardsOver1Year =
+        (shexPerYear * userStakedLPCheck) / totalStakedLP;
+
+      console.log("totalRewardsOver1Year", totalRewardsOver1Year);
+
+      const totalRewardsValue =
+        totalRewardsOver1Year * Number(web2Context.shexPrice);
+
+      console.log("totalRewardsValue", totalRewardsValue);
+
+      return ((totalRewardsValue / userLPTokensValue) * 100).toFixed(0);
+    }
+    return 0;
+  }, [lpPrice, userStakedLP, web2Context, totalStakedLP]);
 
   const amountIn = useMemo(() => parseEther(value as `${number}`), [value]);
 
@@ -156,7 +171,7 @@ export default function Stake() {
                 <div className="font-bold">
                   <div className="font-bold">SOON!</div>
                   {/* {dopaAPR}% */}
-                  {/* <div className="font-bold">SHEX: {shexAPR}%</div> */}
+                  <div className="font-bold">SHEX: {shexAPR}%</div>
                 </div>
               </div>
             </div>

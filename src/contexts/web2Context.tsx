@@ -10,6 +10,8 @@ import {
 export type Web2ContextType = {
   dopamoonPrice: Number;
   bonePrice: Number;
+  shexPrice: Number;
+  shexPerDay: Number;
 };
 
 export const Web2Context = createContext<Web2ContextType | null>(null);
@@ -24,6 +26,8 @@ type Props = {
 export default function Web2Provider({ children }: Props) {
   const [dopaPrice, setDopaPrice] = useState<Number>(0);
   const [bonePrice, setBonePrice] = useState<Number>(0);
+  const [shexPrice, setShexPrice] = useState<Number>(0);
+  const [shexPerDay, setShexPerDay] = useState<Number>(0);
 
   useEffect(() => {
     async function fetchPrices() {
@@ -40,6 +44,21 @@ export default function Web2Provider({ children }: Props) {
       );
       const priceDataEth = await reqEth.json();
       setBonePrice(Number(priceDataEth.pairs[0].priceUsd));
+
+      const reqShex = await fetch(
+        "https://api.dexscreener.com/latest/dex/pairs/shibarium/0x21de8c93e07ae5200d370391a244178a6bf426b2",
+        { next: { revalidate: 10 } }
+      );
+      const priceDataShex = await reqShex.json();
+      setShexPrice(Number(priceDataShex.pairs[0].priceUsd));
+
+      const shexReq = await fetch(
+        "https://fourdex-api-production.up.railway.app/api/shibbex"
+      );
+      const shexPerDayResponse = await shexReq.json();
+      setShexPerDay(
+        shexPerDayResponse.farms.find((farm: any) => farm.id === 2).shexPerDay
+      );
     }
 
     fetchPrices();
@@ -50,6 +69,8 @@ export default function Web2Provider({ children }: Props) {
       value={{
         dopamoonPrice: dopaPrice,
         bonePrice: bonePrice,
+        shexPerDay: shexPerDay, 
+        shexPrice: shexPrice
       }}
     >
       {children}
