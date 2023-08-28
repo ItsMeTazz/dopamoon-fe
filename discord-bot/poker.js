@@ -26,7 +26,6 @@ async function start() {
 
   async function poke() {
     const privateKey = process.env.POKER;
-
     const wallet = new ethers.Wallet(privateKey, provider);
     const contract = new ethers.Contract(contractAddress, contractABI, wallet);
 
