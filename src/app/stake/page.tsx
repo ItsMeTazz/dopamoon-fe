@@ -44,11 +44,22 @@ export default function Stake() {
   );
 
   const dopaAPR = useMemo(() => {
-    return (
-      ((dopaRewardRate * 60 * 60 * 24 * 365) / totalStakedLP) *
-      100
-    ).toFixed(2);
-  }, [dopaRewardRate, totalStakedLP]);
+    if (web2Context && web2Context.dopamoonPrice && dopaRewardRate) {
+      const userStakedLPCheck = userStakedLP ? userStakedLP : 1;
+      const userLPTokensValue = userStakedLPCheck * lpPrice;
+
+      const dopaPerYear = dopaRewardRate * 60 * 60 * 24 * 365;
+
+      const userYearlyRewards =
+        (dopaPerYear * userStakedLPCheck) / totalStakedLP;
+
+      const userYearlyRewardsValue =
+        userYearlyRewards * Number(web2Context.dopamoonPrice);
+
+      return ((userYearlyRewardsValue / userLPTokensValue) * 100).toFixed(0);
+    }
+    return 0;
+  }, [lpPrice, userStakedLP, web2Context, totalStakedLP, dopaRewardRate]);
 
   const shexAPR = useMemo(() => {
     if (web2Context && web2Context.dopamoonPrice && web2Context.shexPerDay) {
@@ -61,7 +72,7 @@ export default function Stake() {
         (shexPerYear * userStakedLPCheck) / totalStakedLP;
 
       const userYearlyRewardsValue =
-      userYearlyRewards * Number(web2Context.shexPrice);
+        userYearlyRewards * Number(web2Context.shexPrice);
 
       console.log("totalRewardsValue", userYearlyRewardsValue);
 
@@ -166,8 +177,7 @@ export default function Stake() {
               <div className="text-right">
                 <div>APR</div>
                 <div className="font-bold">
-                  <div className="font-bold">DOPA: SOON!</div>
-                  {/* {dopaAPR}% */}
+                  <div className="font-bold">DOPA: {dopaAPR}%</div>
                   <div className="font-bold">SHEX: {shexAPR}%</div>
                 </div>
               </div>
@@ -280,7 +290,7 @@ export default function Stake() {
                     ) : (
                       <span className="flex gap-2 items-center">
                         CLAIM
-                        <div className="flex flex-col text-xs">
+                        <div className="flex flex-col text-xs text-right">
                           <div>{dopaPendingRewards} DOPA</div>
                           <div>{shexPendingRewards} SHEX</div>
                         </div>
