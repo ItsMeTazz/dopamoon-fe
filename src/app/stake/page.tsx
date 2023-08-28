@@ -154,9 +154,9 @@ export default function Stake() {
               <div className="text-right">
                 <div>APR</div>
                 <div className="font-bold">
-                  <div className="font-bold">DOPA: SOON!</div>
+                  <div className="font-bold">SOON!</div>
                   {/* {dopaAPR}% */}
-                  <div className="font-bold">SHEX: {shexAPR}%</div>
+                  {/* <div className="font-bold">SHEX: {shexAPR}%</div> */}
                 </div>
               </div>
             </div>
