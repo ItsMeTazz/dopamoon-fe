@@ -55,20 +55,17 @@ export default function Stake() {
       const userStakedLPCheck = userStakedLP ? userStakedLP : 1;
       const userLPTokensValue = userStakedLPCheck * lpPrice;
 
-      console.log(' shex per day', web2Context.shexPerDay)
       const shexPerYear = Number(web2Context.shexPerDay) * 365;
 
-      const totalRewardsOver1Year =
+      const userYearlyRewards =
         (shexPerYear * userStakedLPCheck) / totalStakedLP;
 
-      console.log("totalRewardsOver1Year", totalRewardsOver1Year);
+      const userYearlyRewardsValue =
+      userYearlyRewards * Number(web2Context.shexPrice);
 
-      const totalRewardsValue =
-        totalRewardsOver1Year * Number(web2Context.shexPrice);
+      console.log("totalRewardsValue", userYearlyRewardsValue);
 
-      console.log("totalRewardsValue", totalRewardsValue);
-
-      return ((totalRewardsValue / userLPTokensValue) * 100).toFixed(0);
+      return ((userYearlyRewardsValue / userLPTokensValue) * 100).toFixed(0);
     }
     return 0;
   }, [lpPrice, userStakedLP, web2Context, totalStakedLP]);
@@ -169,7 +166,7 @@ export default function Stake() {
               <div className="text-right">
                 <div>APR</div>
                 <div className="font-bold">
-                  <div className="font-bold">SOON!</div>
+                  <div className="font-bold">DOPA: SOON!</div>
                   {/* {dopaAPR}% */}
                   <div className="font-bold">SHEX: {shexAPR}%</div>
                 </div>
