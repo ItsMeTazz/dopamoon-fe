@@ -2,14 +2,18 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import logo from "@/src/statics/images/logo.png";
 import Link from "next/link";
 import { useWeb2Context } from "@/src/contexts/web2Context";
 import { BsDiscord, BsTwitter } from "react-icons/bs";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import logo from "@/src/statics/images/logo.png";
+import useTokenBalance from "@/src/hooks/useTokenBalance";
+import { DOPAMOON_ADDRESS } from "@/src/statics/addresses";
+import { GiWallet } from "react-icons/gi";
 
 export default function Header() {
   const web2Context = useWeb2Context();
+  const dopaBalance = useTokenBalance(DOPAMOON_ADDRESS);
 
   function nav() {
     return (
@@ -17,43 +21,48 @@ export default function Header() {
         <a
           href="https://shibbex.com/swap?chainId=109&inputCurrency=ETH&outputCurrency=0xB0cb6dE25BFc5811E323DBF0495d9BA6A154f43a"
           target="_blank"
-          className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
+          className="hover:underline hover:text-orange-600 whitespace-nowrap transition-colors"
         >
           Buy
         </a>
-
         <Link
           href="/stake"
-          className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
+          className="hover:underline hover:text-orange-600 whitespace-nowrap transition-colors"
         >
           Farm
+        </Link>
+        <Link
+          href="/redemption"
+          className="hover:underline hover:text-orange-600 whitespace-nowrap transition-colors"
+        >
+          Redemption
         </Link>
         <a
           href="https://shibarium.shib.io/bridge"
           target="_blank"
-          className="hover:underline hover:text-moon whitespace-nowrap transition-colors"
+          className="hover:underline hover:text-orange-600 whitespace-nowrap transition-colors"
         >
           Bridge
         </a>
-
         <a
-          className="bg-white/20 rounded-full px-4 w-full flex items-center justify-center gap-2 hover:text-green-400 transition-colors"
+          className="bg-white/20 rounded-full px-2 w-full flex items-center justify-center gap-2 hover:text-orange-600 transition-colors"
           href="https://dexscreener.com/shibarium/0x4a89dbcf583f899371ca9dacd9a9840202caf160"
           target="_blank"
         >
-          <Image src={logo} alt="logo" height={35} />
+          <Image src={logo} alt="logo" className="h-[30px] w-auto" />
           {web2Context &&
             web2Context.dopamoonPrice &&
             `$${web2Context.dopamoonPrice.toFixed(2)}`}
+          <div>{Number(dopaBalance?.formatted).toFixed(2)}</div>
+          <GiWallet size={15} />
         </a>
       </nav>
     );
   }
 
   return (
-    <div className="relative z-50 mt-7 w-full px-4 md:px-7 ">
+    <div className="relative z-40 mt-4 w-full px-4 md:px-4">
       <div className="overflow-hidden rounded-md outline-1 outline outline-slate-100/20 w-full flex flex-col md:flex-row justify-center">
-        <div className="absolute rounded-tl-lg -top-2 left-2 md:left-5 w-7 h-7 border-l-2 border-t-2 border-green-400/60" />
         <div className="w-full shadow-lg">
           <motion.div
             initial={{
@@ -62,39 +71,30 @@ export default function Header() {
             }}
             animate={{ opacity: 1, width: "100%" }}
             transition={{ duration: 2, ease: [0.42, 0, 0.58, 1] }}
-            className="overflow-hidden group w-full flex h-16 z-50 items-center justify-between backdrop-blur-md bg-slate-100/20 pr-4"
+            className="relative overflow-hidden group w-full flex h-16 z-50 items-center justify-between backdrop-blur-md bg-slate-100/20 pr-4"
           >
-            <Link href="/">
-              <div className="flex justify-start items-center gap-4">
-                <div className="w-16 h-full">
-                  <motion.div
-                    initial={{
-                      width: "10%",
-                    }}
-                    animate={{ width: "100%" }}
-                    transition={{
-                      delay: 0.3,
-                      duration: 2,
-                      ease: [0.42, 0, 0.58, 1],
-                    }}
-                    className="w-full h-full flex justify-center items-center"
-                  >
-                    <Image src={logo} alt="logo" className="p-1 rounded-full" />
-                  </motion.div>
+            <Link href="/" className="relative flex gap-2 pl-2 items-center">
+              <Image src={logo} className="w-auto h-[50px]" alt="logo" />
+
+              <div className="flex flex-col text-center">
+                <h1 className="text-3xl flex">
+                  <span className="text-orange-600 font-bold">Dopa</span>
+                  <span className="">Moon</span>
+                </h1>
+
+                <div className="relative flex items-start gap-10">
+                  <div className="flex">
+                    <div className="polygon logo-line delay-1 h-1.5 w-2 bg-white"></div>
+                    <div className="polygon logo-line delay-2 h-1.5 w-2 bg-white"></div>
+                    <div className="polygon logo-line delay-3 h-1.5 w-2 bg-white"></div>
+                    <div className="polygon logo-line delay-4 h-1.5 w-2 bg-white"></div>
+                  </div>
+                  <div className="flex w-full gap-0.5">
+                    <div className="triangle h-1.5 w-1.5 bg-orange-600"></div>
+                    <div className="polygon-2 h-1.5 w-full bg-white"></div>
+                  </div>
+                  <div className="slide-right-to-left absolute right-0 top-1 h-0.5 w-2 bg-orange-600"></div>
                 </div>
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                  }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 2, duration: 1, ease: "linear" }}
-                  className="relative h-full text-4xl flex items-center"
-                >
-                  DOPA
-                  <span className="hidden md:flex text-moon translate-y-20 group-hover:translate-y-0 transition-all">
-                    MOON
-                  </span>
-                </motion.div>
               </div>
             </Link>
 
@@ -118,7 +118,7 @@ export default function Header() {
           >
             <BsDiscord size={23} className="z-10 group-hover:animate-wiggle" />
 
-            <div className="z-0 group-hover:w-full bg-moon absolute bottom-0 h-full w-0 left-0 transition-all ease-in-out duration-500" />
+            <div className="z-0 group-hover:w-full bg-orange-600 absolute bottom-0 h-full w-0 left-0 transition-all ease-in-out duration-500" />
           </a>
           <a
             href="https://twitter.com/dopamoonxyz"
@@ -126,7 +126,7 @@ export default function Header() {
             className="backdrop-blur-md group cursor-pointer relative w-24 flex justify-center items-center border-r-[1px] border-slate-100/20 h-full transition-colors duration-500"
           >
             <BsTwitter size={23} className="z-10 group-hover:animate-wiggle" />
-            <div className="z-0 group-hover:w-full bg-moon absolute bottom-0 h-full w-0 left-0 transition-all ease-in-out duration-500" />
+            <div className="z-0 group-hover:w-full bg-orange-600 absolute bottom-0 h-full w-0 left-0 transition-all ease-in-out duration-500" />
           </a>
           <ConnectButton.Custom>
             {({
@@ -200,7 +200,7 @@ export default function Header() {
                       );
                     })()}
                   </div>
-                  <div className="z-0 group-hover:w-full bg-moon absolute bottom-0 h-full w-0 left-0 transition-all ease-in-out duration-500" />
+                  <div className="z-0 group-hover:w-full bg-orange-600 absolute bottom-0 h-full w-0 left-0 transition-all ease-in-out duration-500" />
                 </div>
               );
             }}

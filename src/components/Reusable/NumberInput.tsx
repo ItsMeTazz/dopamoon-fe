@@ -1,5 +1,5 @@
 import { formatNumberToCurrency } from "@/src/statics/helpers/numberFormatter";
-import logo from "@/src/statics/images/lp.png";
+import logo from "@/src/statics/images/logo.png";
 import Image from "next/image";
 
 export default function NumberInput({
