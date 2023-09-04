@@ -5,7 +5,7 @@ import {
   ReactNode,
   useContext,
   useEffect,
-} from "react";
+} from 'react'
 
 export type Web2ContextType = {
   dopamoonPrice: Number;

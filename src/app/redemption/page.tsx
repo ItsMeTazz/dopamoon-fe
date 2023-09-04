@@ -52,7 +52,7 @@ export default function Redemption() {
             <div className="mt-6">Your deposits: {userDeposits} DOPA</div>
             {totalDeposits && (
               <div className="mt-6">
-                Total deposits: {Number(totalDeposits?.value).toFixed(4)} DOPA
+                Total deposits: {Number(totalDeposits?.formatted).toFixed(4)} DOPA
               </div>
             )}
             <div className="mt-6">
